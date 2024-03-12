@@ -1,0 +1,817 @@
+@font-face {
+  font-family: 'BebasNeue'; 
+  src: url('./utils/Bebas\ Neue.otf');
+}
+.van-hairline--bottom::after{
+  border-bottom-width: 0px !important; 
+}
+.all_lock_bac{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: transparent;
+  opacity: 0.8;
+  z-index: 9999;
+}
+.custom_dia_overlay{    
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,.7);
+  animation: showAnim 0.5s forwards;
+}
+@keyframes showAnim {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+/* van-overlay 弹窗外层 */
+.utils_dia_bac_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.top_nav{
+  // background: #FF4063;
+  height: 46px;
+  width: 100%;
+  .bar_left_money{
+    color: var(--text-1, #FFF);
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 8px;
+  }
+}
+.wealCenter {
+  width: calc(100vw - 32px);
+  height: calc(100vh - 32px - 46px);
+  margin-top: 46px;
+  overflow: auto;
+  padding: 16px;
+  background: #F2F3F5;
+}
+.wealCenter::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.earnings_but{
+  padding: 5px 10px 5px 5px;
+  border-radius: 100px;
+  background: #FFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-family: 'PingFang SC';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  .zhi_fu_img{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 5px;
+    display: block;
+  }
+}
+.earnings_con_bac{
+  width: calc(100% - 40px);
+  padding: 20px;
+  border-radius: 12px;
+  // background: linear-gradient(90deg, #FF7459 0%, #FF4063 100%);
+  background-image: url('assets/earnings_bac_img.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  .earnings_top{
+    display: flex;
+    align-items: center;
+    .earnings_top_money{
+      flex: 1;
+      .top_text{
+        color: #FFF;
+        font-family: 'PingFang SC';
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+      }
+      .bot_text{
+        color: #FFF;
+        font-family: 'BebasNeue';
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 400;
+      }
+    }
+  }
+  .earnings_bot{
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    font-family: 'PingFang SC';
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    margin-top: 16.5px;
+    .guang_bo_img{
+      display: block;
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+    }
+  }
+}
+.ren_wu_div{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 2px solid #FFF;
+  background: #FFFAFB;
+  .ren_wu_left{
+    flex: 1;
+    .ren_wu_title{
+      color: #1D2129;
+      font-size: 17px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      .ren_hong_img{
+        height: 16px;
+        display: block;
+        margin-left: 4px;
+        margin-right: 2px;
+      }
+      .ren_hong_text{
+        color: #D73C1D;
+        font-size: 10px;
+        font-weight: 500;
+      }
+    }
+    .ren_mes_text{
+      color: #86909C;
+      font-size: 11px;
+      font-weight: 400;
+    }
+  }
+  .ren_but_money{
+    padding: 5px 10px 5px 5px;
+    border-radius: 100px;
+    background: #1677FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    font-family: 'PingFang SC';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    border: 0px;
+    .but_img{
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 5px;
+      display: block;
+    }
+  }
+  .ren_but_rest{
+    padding: 5px 10px;
+    background: linear-gradient(90deg, #FF7459 0%, #FF4063 100%);
+    box-shadow: 0px 4px 8px 0px rgba(255, 81, 96, 0.20);
+    border-radius: 100px;
+    border: 0px;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+.qian_car_bac{
+  width: calc(100% - 24px);
+  padding: 20px 8px 20px 16px;
+  border-radius: 12px;
+  background: #FFF;
+  margin-top: 10px;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  .qian_top{
+    display: flex;
+    color: #1D2129;
+    font-size: 17px;
+    font-weight: 600;
+    .qian_xian_time{
+      display: flex;
+      padding: 1px 8px;
+      align-items: center;
+      border-radius: 100px;
+      background: #FFF7E8;
+      margin-left: 4px;
+
+      color: #A18D6C;
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
+  .qian_con{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    margin-top: 16px;
+    .qian_col{
+      .hong_bac_ling{
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        background: #FEEFE8;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        .hong_bao_img{
+          width: 24px;
+          height: 24px;
+          display: block;
+        }
+        .hong_yes_img{
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          right: -8px;
+          top: -8px;
+        }
+      }
+      .utils_money{
+        height: 16px;
+        line-height: 16px;
+        text-align: center;
+        border-radius: 100px;
+        font-family: 'PingFang SC';
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+      .ling_money{
+        border: 0.5px solid #D73C1D;
+        background: #FEEEE7;
+        color: #D73C1D;
+      }
+      .cuo_money{
+        border: 0.5px solid #86909C;
+        background: #F2F3F5;
+        color: #86909C;
+      }
+      .ming_money{
+        border: 0.5px solid #D73C1D;
+        background: #D73C1D;
+        color: #FFF;
+      }
+    }
+    .qian_col_filter{
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      opacity: 0.5;
+      background: #FFF;
+    }
+    .last_bac{
+      width: 120%;
+      height: 53px;
+      transform: translateX(-10%);
+      position: relative;
+      .sum_money_bac{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .sum_money_text{
+        width: 100%;
+        color: #B95721;
+        text-align: center;
+        font-family: 'PingFang SC';
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        position: absolute;
+        top: 5px;
+        z-index: 1;
+      }
+      .money_dan_wei{
+        color: #B95721;
+        font-size: 6px;
+        font-weight: 600;
+      }
+    }
+    .mes_text_Utils{
+      text-align: center;
+      font-family: 'PingFang SC';
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      margin-top: 4px;
+    }
+  }
+  .ti_xing_bac{
+    height: 24px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 100px;
+    background: #FFF7E8;
+    margin-top: 14px;
+    margin-right: 8px;
+    
+    color: #A18D6C;
+    font-family: 'PingFang SC';
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+  }
+}
+
+.chou_car_bac{
+  width: calc(100% - 32px);
+  padding: 20px 16px;
+  border-radius: 12px;
+  background: #FFF;
+  margin-top: 10px;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  .chou_title{
+    color: #1D2129;
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .chou_list{
+      color: #A18D6C;
+      font-size: 15px;
+      text-decoration: underline;
+    }
+  }
+  .chou_mes{
+    color: var(--text-3, #86909C);
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 3px;
+  }
+  .prize_bac_one{
+    margin-top: 16px;
+  }
+  .prize_bac_two{
+    flex-direction: row-reverse;
+    margin-top: 6px;
+  }
+  .prize_bac{
+    display: flex;
+    gap: 6px;
+    .prize_card{
+      flex: 1;
+      height: 97px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: center;
+      border-radius: 4px;
+      background: #F7F8FA;
+      transition: border 0.15s;
+      .prize_img{
+        height: 44px;
+        display: block;
+      }
+      .prize_value{
+        width: 100%;
+        color: var(--, #060607);
+        text-align: center;
+        font-size: 11px;
+        font-weight: 500;
+        margin-top: 8px;
+      }
+      .prize_describe{
+        width: 100%;
+        color: var(--text-3, #86909C);
+        text-align: center;
+        font-size: 10px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .chou_but{
+    width: 100%;
+    height: 48px;
+    background: linear-gradient(90deg, #FF7459 0%, #FF4063 100%);
+    box-shadow: 0px 4px 8px 0px rgba(255, 81, 96, 0.20);
+    border: 0px;
+    border-radius: 100px;
+    color: #FFF;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 16px;
+  }
+  .chou_sheng{
+    color: #A18D6C;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 12px;
+  }
+}
+.day_car_bac{
+  width: calc(100% - 32px);
+  padding: 20px 16px;
+  border-radius: 12px;
+  background: #FFF;
+  margin-top: 10px;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  .day_mes_text{
+    color: #86909C;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .day_top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .day_top_left{
+      color:  #1D2129;
+      font-size: 17px;
+      font-weight: 500;
+    }
+  }
+  .mei_ren_div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #F2F3F5;
+    .mei_ren_left{
+      flex: 1;
+      .ren_left_title{
+        color: #1D2129;
+        font-size: 15px;
+        font-weight: 400;
+      }
+      .ren_left_jin{
+        color: #A18D6C;
+        font-size: 13px;
+        font-weight: 400;
+        margin-left: 4px;
+      }
+    }
+    .mei_ren_right{
+      padding: 5px 10px;
+      background: linear-gradient(90deg, #FF7459 0%, #FF4063 100%);
+      box-shadow: 0px 4px 8px 0px rgba(255, 81, 96, 0.20);
+      border-radius: 100px;
+      border: 0px;
+      color: #FFF;
+      font-size: 12px;
+      font-weight: 500;
+      position: relative;
+    }
+    .ren_yi_but{
+      padding: 5px 10px;
+      background: #F2F3F5;
+      border-radius: 100px;
+      border: 0px;
+      color: #86909C;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+}
+.prize_dia_con_bac{
+  width: 316px;
+  min-height: 250px;
+  .prize_con_bac {
+    width: calc(100% - 60px);
+    min-height: calc(100% - 60px);
+    border-radius: 8px;
+    padding: 30px;
+    position: relative;
+    background-image: url('assets/prize_dia_bac.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    .tiao_top{
+      height: 32px;
+      position: absolute;
+      top: -9px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .xing_left{
+      width: 74px;
+      height: 64px;
+      position: absolute;
+      top: -32px;
+      left: -32px;
+    }
+    .xing_top{
+      width: 49px;
+      height: 40px;
+      position: absolute;
+      top: -13px;
+      right: 30px;
+    }
+    .xing_right{
+      width: 74px;
+      height: 64px;
+      position: absolute;
+      top: 110px;
+      right: -42px;
+    }
+
+    .title_text{
+      text-align: center;
+      font-family: Alibaba PuHuiTi 2.0;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 800;
+      background: var(--unnamed, linear-gradient(90deg, #FF7459 0%, #FF4063 100%));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 8px;
+    }
+    .prize_img{
+      width: 100px;
+      height: 100px;
+      display: block;
+      margin: auto;
+      margin-top: 24px;
+    }
+    .prize_title{
+      color: #1D2129;
+      text-align: center;
+      font-family: 'PingFang SC';
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      margin-top: 24px;
+    }
+    .prize_mes{
+      color: #4E5969;
+      text-align: center;
+      font-family: 'PingFang SC';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      margin-top: 4px;
+    }
+  }
+  .close_but_div{
+    width: 100%;
+    text-align: center;
+    padding-top: 50px;
+  }
+}
+.prize_dia_list_bac{
+  width: 316px;
+  height: auto;
+  .prize_list_con {
+    width: calc(100% - 32px);
+    border-radius: 8px;
+    padding: 16px 16px 40px 16px;
+    background: linear-gradient(91deg, #EDC3A8 0.89%, #F3E9E0 99.11%);
+    .con_title{
+      text-align: center;
+      font-size: 24px;
+      font-weight: 500;
+      background: var(--unnamed, linear-gradient(90deg, #FF7459 0%, #FF4063 100%));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .con_mes{
+      color: #86909C;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 400;
+    }
+    .con_card_bac::-webkit-scrollbar{
+      width: 0;
+      height: 0;
+    }
+    .con_card_bac{
+      width: 100%;
+      height: calc(283px - 16px);
+      overflow: auto;
+      margin-top: 16px;
+      .con_card{
+        width: calc(100% - 16px);
+        padding: 8px;
+        border-radius: 8px;
+        background: #FFF;
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        .card_prize_div{
+          padding: 8px;
+          border-radius: 8px;
+          background: #FFF1E4;
+          margin-right: 12px;
+          .card_prize_img{
+            width: 32px;
+            height: 32px;
+            display: block;
+          }
+        }
+        .card_right{
+          
+          .card_prize_value{
+            color: #190000;
+            font-size: 16px;
+            font-weight: 500;
+          }
+          .card_prize_date{
+            color: #86909C;
+            font-size: 12px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+    .no_prize_div{
+      width: 100%;
+      height: 260px;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+      .no_prize_icon{
+        width: 42px;
+        height: 42px;
+        display: block;
+      }
+      .no_prize_text{
+        width: 100%;
+        color: #4E5969;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 400;
+        margin-top: 16px;
+      }
+    }
+  }
+  .close_but_div{
+    width: 100%;
+    text-align: center;
+    padding-top: 50px;
+  }
+}
+.rest_dia_con_bac {
+  width: calc(316px - 56px);
+  min-height: calc(250px - 56px);
+  border-radius: 8px;
+  padding: 28px;
+  position: relative;
+  background: #FFF;
+  .rest_top_bac{
+    width: 248px;
+    height: 134px;
+    background-image: url('assets/rest_dia_top_bac.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -67px;
+    left: 50%;
+    transform: translateX(-50%);
+    .top_img{
+      width: 130px;
+      height: 100px;
+      display: block;
+    }
+  }
+  .rest_logo_bac{
+    border: 1px solid #FF7459;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    .logo_img{
+      width: 32px;
+      height: 32px;
+      display: block;
+    }
+  }
+  .rest_title{
+    color: #1D2129;
+    text-align: center;
+    font-family: 'PingFang SC';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    margin-top: 24px;
+  }
+  .rest_money{
+    text-align: center;
+    color: #D73C1D;
+    font-family: 'PingFang SC';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    span{
+      font-size: 56px;
+      font-weight: 500;
+    }
+  }
+  .rest_mes{
+    color: #4E5969;
+    text-align: center;
+    font-family: 'PingFang SC';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    margin-top: 8px;
+  }
+}
+.dia_confirm_but{
+  width: 100%;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  background: var(--unnamed, linear-gradient(90deg, #FF7459 0%, #FF4063 100%));
+  box-shadow: 0px 4px 8px 0px rgba(255, 81, 96, 0.20);
+  border: 0px;
+
+  color: #FFF;
+  font-family: 'PingFang SC';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  margin-top: 24px;
+}
+.qian__mes_dia_con {
+  width: calc(316px - 56px);
+  border-radius: 8px;
+  padding: 28px;
+  position: relative;
+  background: #FFF;
+  .qian_dia_title{
+    color: #181818;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .qian_dia_mes{
+    color: #1D2129;
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: 8px;
+  }
+  .qian_but_div{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    .but_left{
+      width: calc(50% - 6px);
+      height: 44px;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 4px;
+      border: 1px solid #040205;
+      background: #FFF;
+      span{
+        background: linear-gradient(271deg, #040205 0.28%, #383639 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+    .but_right{
+      width: calc(50% - 6px);
+      height: 44px;
+      border: 0px;
+      color: #FAD9A6;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 4px;
+      background: linear-gradient(271deg, #040205 0.28%, #383639 100%);
+    }
+  }
+}

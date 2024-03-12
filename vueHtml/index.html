@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Cache" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>测试页面</title>
+    <link rel="stylesheet" href="./utils/vant-index.css"/>
+    <link href="./index.less" type="text/less" rel="stylesheet/less"  />
+    <script src="./utils/less.js"></script>
+    <script src="./utils/vue.min.js"></script>
+    <script src="./utils/vant.min.js"></script>
+    <script src="./utils/vconsole.min.js"></script>
+  </head>
+
+  <body>
+    <div id="wealCenter">
+      <!-- 抽奖时禁用屏幕 -->
+      <div class="all_lock_bac" v-if="chouButLoading"></div>
+      <!-- 头部 -->
+      <van-nav-bar class="top_nav" fixed safe-area-inset-top
+        :style="{'background' : earningsTop==0 ? '#FFF' : '#FF4063'}"> 
+        <!-- :style="{'background' : earningsTop==0 ? '#FFF' : '#FF40'+(62+earningsTop+'')}">  -->
+        <template #left>
+          <span v-show="earningsTop==0"><van-icon name="arrow-left" color="#1D2129" size="20px"/></span>
+          <span v-show="earningsTop!=0">
+            <van-icon name="arrow-left" color="#FFFFFF" size="20px"/>
+            <span class="bar_left_money">现金余额(元)：1240.2</span>
+          </span>
+        </template> 
+        <template #title >
+          <span v-show="earningsTop==0">福利中心</span>
+        </template>
+        <template #right>
+          <div class="earnings_but" @click="goAppPage('op://my/incomeWithdrawal')"  v-show="earningsTop!=0">
+            <img src="assets/icon_alipay_yuan.png" class="zhi_fu_img">去提现
+          </div>
+        </template>
+      </van-nav-bar>
+      <div class="wealCenter" id="wealCenterId">
+        <!-- 收益区 -->
+        <div class="earnings_con_bac" id="earningsConId">
+          <div class="earnings_top">
+            <div class="earnings_top_money">
+              <div class="top_text">现金余额(元)</div>
+              <div class="bot_text">0.0</div>
+            </div>
+            <div class="earnings_top_money">
+              <div class="top_text">累计收益(元)</div>
+              <div class="bot_text">0.0</div>
+            </div>
+            <div class="earnings_but" @click="showQianDia=true">
+              <img src="assets/icon_alipay_yuan.png" class="zhi_fu_img">去提现
+            </div>
+          </div>
+          <div class="earnings_bot">
+            <img src="assets/guang_bo_icon.png" class="guang_bo_img">
+            <van-swipe vertical :autoplay="3000" :show-indicators="false"
+              style="height: 16px;line-height: 16px;">
+              <van-swipe-item>小小***成功提现了 188 元</van-swipe-item>
+              <van-swipe-item>我想向天再***成功提现了 288 元</van-swipe-item>
+              <van-swipe-item>大大的***成功提现了 1088 元</van-swipe-item>
+            </van-swipe>
+          </div>
+        </div>
+        <!-- 去提现类型 任务卡 -->
+        <template  v-for="(item, index) in missionCardList" >
+          <div class="ren_wu_div" :key="index" v-if="item.type==1">
+            <div class="ren_wu_left">
+              <div class="ren_wu_title">
+                {{ item.title }}<img src="assets/xiao_hong_bao.png" class="ren_hong_img">
+                <span class="ren_hong_text">{{ item.hongText }}</span>
+              </div>
+              <div class="ren_mes_text">{{item.message}}</div>
+            </div>
+            <button class="ren_but_money" v-if="item.type==1" @click="showRestDia=true">
+              <img src="assets/icon_alipay_yuan.png"  class="but_img">去提现
+            </button>
+            <button class="ren_but_rest"  v-if="item.type==2">
+              {{item.butText}}
+            </button>
+          </div>
+        </template>
+        <!-- 签到区 -->
+        <div class="qian_car_bac">
+          <div class="qian_top">
+            回归签到7天<span style="color: #D73C1D;">必得20元</span>
+            <div class="qian_xian_time">限10.19-10.25</div>
+          </div>
+          <!-- <div class="qian_top">
+            已连续签到<span style="color: #D73C1D;"> &nbsp;3&nbsp; </span>天
+            <div class="qian_xian_time">连续7天签到获得9元</div>
+          </div> -->
+          <div class="qian_con">
+            <template  v-for="(item,index) in qianDateList">
+              <div class="qian_col" :class="userQianData[index].state==1||userQianData[index].state==2 ? 'qian_col_filter' : ''" :key="index" v-if="index<6">
+                <div class="hong_bac_ling">
+                  <img src="assets/hong_bao_icon.png" class="hong_bao_img">
+                  <img src="assets/ling_hong_yes.png" class="hong_yes_img" v-if="userQianData[index].state==1">
+                </div>
+                <div class="utils_money ling_money" 
+                  v-if="userQianData[index].state==1 || userQianData[index].state==0 && !ifTomorrow(item.date)">{{item.money}}元</div>
+                <div class="utils_money cuo_money" v-if="userQianData[index].state==2">{{item.money}}元</div>
+                <div class="utils_money ming_money" v-if="ifTomorrow(item.date)">{{item.money}}元</div>
+  
+                <div class="mes_text_Utils" style="color: #4E5969;" v-if="userQianData[index].state==1">已领</div>
+                <div class="mes_text_Utils" style="color: #4E5969;" v-if="userQianData[index].state==2">已错过</div>
+                <div class="mes_text_Utils" style="color: #D73C1D;font-weight: 500;" 
+                  v-if="userQianData[index].state==0 && ifTomorrow(item.date)">明天</div>
+                <div class="mes_text_Utils" style="color: #1D2129;" 
+                  v-if="userQianData[index].state==0 && !ifTomorrow(item.date)">{{index+1}}天</div>
+              </div>
+              <div :key="index" v-else>
+                <div class="last_bac">
+                  <div class="sum_money_text">{{item.money}}<span class="money_dan_wei">元</span></div>
+                  <img src="assets/count_money_bac.png" class="sum_money_bac">
+                </div>
+                <div class="mes_text_Utils" style="color: #4E5969;" v-if="userQianData[index].state==1">已领</div>
+                <div class="mes_text_Utils" style="color: #4E5969;" v-if="userQianData[index].state==2">已错过</div>
+                <div class="mes_text_Utils" style="color: #D73C1D;font-weight: 500;" 
+                  v-if="userQianData[index].state==0 && ifTomorrow(item.date)">明天</div>
+                <div class="mes_text_Utils" style="color: #1D2129;" 
+                  v-if="userQianData[index].state==0 && !ifTomorrow(item.date)">{{index+1}}天</div>
+              </div>
+            </template>
+          </div>
+          <div class="ti_xing_bac">
+            <span>开启提醒，明日来领红包</span>
+            <van-switch :value="tiChecked" size="16px" active-color="#A18D6C" @input="dateCheckedInput"/>
+          </div>
+        </div>
+        <!-- 其他可配按钮文案跳转类型 任务卡 -->
+        <template  v-for="(item, index) in missionCardList" >
+          <div class="ren_wu_div" :key="index" v-if="item.type==2">
+            <div class="ren_wu_left">
+              <div class="ren_wu_title">
+                {{ item.title }}<img src="assets/xiao_hong_bao.png" class="ren_hong_img">
+                <span class="ren_hong_text">{{ item.hongText }}</span>
+              </div>
+              <div class="ren_mes_text">{{item.message}}</div>
+            </div>
+            <button class="ren_but_money" v-if="item.type==1">
+              <img src="assets/icon_alipay_yuan.png" class="but_img">去提现
+            </button>
+            <button class="ren_but_rest"  v-if="item.type==2">
+              {{item.butText}}
+            </button>
+          </div>
+        </template>
+        <!-- 抽奖区 -->
+        <div class="chou_car_bac">
+          <div class="chou_title">
+            <span>每日签到抽大奖</span>
+            <span class="chou_list" @click="clickShowPrizeList">我的奖品</span>
+          </div>
+          <div class="chou_mes">完成任务获得更多抽奖次数，每周日24:00次数重置</div>
+          <div class="prize_bac prize_bac_one">
+            <template v-for="(item,index) in prizeList">
+              <div class="prize_card" :style="{'border': chouNum==index ? '2px solid #FF7459': '2px solid #F7F8FA'}"
+                :key="index" v-if="index < 4">
+                <img :src="item.img" class="prize_img">
+                <div class="prize_value">{{ item.value }}</div>
+                <div class="prize_describe">{{ item.describe }}</div>
+              </div>
+            </template>
+          </div>
+          <div class="prize_bac prize_bac_two">
+            <template v-for="(item,index) in prizeList">
+              <div class="prize_card" :style="{'border': chouNum==index ? '2px solid #FF7459': '2px solid #F7F8FA'}"
+                :key="index" v-if="index >= 4">
+                <img :src="item.img" class="prize_img">
+                <div class="prize_value">{{ item.value }}</div>
+                <div class="prize_describe">{{ item.describe }}</div>
+              </div>
+            </template>
+          </div>
+          <button class="chou_but" v-preventReClick @click="beginChouJIan()" :disabled="chouButLoading">马上抽奖</button>
+          <div class="chou_sheng">还剩3次</div>
+        </div>
+        <!-- 每日任务区 -->
+        <div class="day_car_bac">
+          <div class="day_top">
+            <div class="day_top_left">每日任务</div>
+            <div class="day_mes_text">完成任务获得更多抽奖次数</div>
+          </div>
+          <div class="mei_ren_div" v-for="(item, index) in meiRenList" :key="index">
+            <div class="mei_ren_left">
+              <div class="ren_left_title">
+                {{ item.title }}<span class="ren_left_jin">抽奖次数+{{ item.num }}</span>
+              </div>
+              <div class="day_mes_text">{{item.message}}</div>
+            </div>
+            <button class="mei_ren_right" v-preventReClick v-if="item.state==2">去完成</button>
+            <div style="opacity: 0.5;background: #FFF">
+              <button class="mei_ren_right " v-preventReClick v-if="item.state==1 && item.type==1">明天继续</button>
+            </div>
+            <button class="ren_yi_but" v-preventReClick v-if="item.state==1 && item.type==2">已完成</button>
+          </div>
+        </div>
+        <!-- 抽奖中奖 弹窗-->
+        <van-overlay :show="showPrizeDia">
+          <div class="utils_dia_bac_wrapper" @click.self="showPrizeDia = false">
+            <div class="prize_dia_con_bac">
+              <div class="prize_con_bac">
+                <img src="assets/dia_bac_top.png" class="tiao_top">
+                <img src="assets/dia_bac_xing.png" class="xing_left">
+                <img src="assets/dia_bac_xing.png" class="xing_top">
+                <img src="assets/dia_bac_xing.png" class="xing_right">
+  
+                <div class="title_text">恭喜获得</div>
+                <img :src="prizeSelectData.img" class="prize_img">
+                <div class="prize_title">{{ prizeSelectData.describe }}</div>
+                <div class="prize_mes">获得钻石将自动入账</div>
+                <!-- 底部按钮 -->
+                <button class="dia_confirm_but" @click="showPrizeDia = false">继续抽奖</button>
+  
+              </div>
+              <div class="close_but_div" @click="showPrizeDia = false">
+                <van-icon name="close" size="36" color="#FAD9A6" />
+              </div>
+            </div>
+          </div>
+        </van-overlay>   
+        <!-- 抽奖记录 弹窗-->
+        <div class="custom_dia_overlay" v-show="showPrizeList">
+          <div class="utils_dia_bac_wrapper" @click.self="showPrizeList = false">
+            <div class="prize_dia_list_bac">
+              <div class="prize_list_con">
+                <div class="con_title">我的奖品</div>
+                <div class="con_mes">当前仅保留最近15天的奖品记录</div>
+                <div class="con_card_bac" v-if="prizeList.length > 0">
+                  <div class="con_card" v-for="(item,index) in prizeList" :key="index">
+                    <div class="card_prize_div">
+                      <img :src="item.img" class="card_prize_img">
+                    </div>
+                    <div class="card_right">
+                      <div class="card_prize_value">{{ item.value }}</div>
+                      <div class="card_prize_date">2023-10-30</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="no_prize_div" v-else>
+                  <img src="assets/no_prize_logo.png" class="no_prize_icon">
+                  <div class="no_prize_text">暂无相关奖品</div>
+                </div>
+              </div>
+              <div class="close_but_div" @click="showPrizeList = false">
+                <van-icon name="close" size="36" color="#FAD9A6" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 签到 弹窗-->
+        <van-overlay :show="showQianDia">
+          <div class="utils_dia_bac_wrapper" @click.self="showQianDia = false">
+            <div class="rest_dia_con_bac">
+              <div class="rest_top_bac">
+                <img src="assets/rest_dia_top.png" class="top_img">
+              </div>
+              <div class="rest_title">今日签到成功</div>
+              <div class="rest_money">获得<span>1.1</span>元</div>
+              <div class="rest_mes">明天签到可继续获得1.3元</div>
+              <button class="dia_confirm_but" @click="showQianDia = false">赚更多奖励</button>
+            </div>
+          </div>
+        </van-overlay>
+        <!-- 其他 弹窗-->
+        <van-overlay :show="showRestDia">
+          <div class="utils_dia_bac_wrapper" @click.self="showRestDia = false">
+            <div class="rest_dia_con_bac">
+              <div class="rest_logo_bac">
+                <img src="assets/rest_logo_icon.png" class="logo_img">
+                <!-- <img src="assets/time_img_icon.png"> -->
+              </div>
+              <div class="rest_title">还未通过人气认证</div>
+              <div class="rest_mes">通过人气认证提现0.5元</div>
+              <button class="dia_confirm_but" @click="showRestDia = false">领取其他福利</button>
+            </div>
+          </div>
+        </van-overlay>
+        <!-- 签到通知确认 弹窗-->
+        <van-overlay :show="showQianMesDia">
+          <div class="utils_dia_bac_wrapper" @click.self="showQianMesDia = false">
+            <div class="qian__mes_dia_con">
+              <div class="qian_dia_title">开启提醒需要打开通知权限</div>
+              <div class="qian_dia_mes">需要打开推送通知，才能收到签到提醒哦～</div>
+              <div class="qian_but_div">
+                <button class="but_left" @click="showQianMesDia = false">
+                  <span>取消</span>
+                </button>
+                <button class="but_right" @click="goInform()">去设置</button>
+              </div>
+            </div>
+          </div>
+        </van-overlay>
+      </div>
+    </div>
+  </body>
+  <!-- 外联使用使用vue -->
+  <script type="module"> import './index.js' </script>
+</html>
